@@ -1,0 +1,10 @@
+{
+  "test": {
+    "PORT": 3000,
+    "JWT_SECRET": "a0s98032h4lfdg98kkjlkj"
+  },
+  "development": {
+    "PORT": 3000,
+    "JWT_SECRET": "oiwehfarg8943598263rkijhaf"
+  }
+}
