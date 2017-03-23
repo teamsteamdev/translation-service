@@ -13,17 +13,17 @@ app.use(bodyParser.json())
 
 // CREATE new translation
 app.post('/', (req, res) => {
-  let en = req.body.en
+  let en = req.body
 
   translate(en).then(es => {
-    res.send({en, es})
+    res.send(es)
   }).catch((err) => {
     res.status(400).send(err)
   })
 })
 
 app.listen(port, () => {
-  console.log(`Started on port ${port}`)
+  // console.log(`Started on port ${port}`)
 })
 
 module.exports = {app}
