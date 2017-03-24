@@ -4,7 +4,6 @@ let translate = (paragraphs, terms) => {
   if (paragraphs.constructor !== Array) {
     return Promise.reject('Data is not an array')
   }
-
   let transformed = paragraphs.map((string) => {
     if (typeof string === 'string') {
       return string.trim().replace(/yy|hh/g, '')
