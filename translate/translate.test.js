@@ -2,6 +2,8 @@
 const expect = require('expect')
 const {translate} = require('./translate')
 
+const {en, terms} = require('./../test-seed/seed.json')
+
 describe('translate()', () => {
   let enText = [
     'In this case, it will have the corrections delimited with brackets.',
@@ -51,6 +53,19 @@ describe('translate()', () => {
       expect(array.length).toBe(2)
       expect(array[0]).toExclude('yy')
       expect(array[1]).toExclude('hh')
+      done()
+    }).catch((err) => done(err))
+  })
+
+  it('should replace the provided terms', (done) => {
+    translate(en, terms).then((array) => {
+      array.forEach((string) => {
+        terms.forEach((term) => {
+          let {find} = term
+
+          expect(string).toNotContain(find, 'translate() should replace terms.find')
+        })
+      })
       done()
     }).catch((err) => done(err))
   })
