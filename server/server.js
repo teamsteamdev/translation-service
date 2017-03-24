@@ -13,9 +13,9 @@ app.use(bodyParser.json())
 
 // CREATE new translation
 app.post('/', (req, res) => {
-  let en = req.body
+  let {en, glossary} = req.body
 
-  translate(en).then(es => {
+  translate(en, glossary).then(es => {
     res.send(es)
   }).catch((err) => {
     res.status(400).send(err)

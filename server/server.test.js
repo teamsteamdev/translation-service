@@ -13,6 +13,7 @@ describe('POST /', () => {
       .send(data)
       .expect(200)
       .then((res) => {
+        expect(res.body).toBeAn(Array)
         expect(res.body).toNotEqual(data)
         done()
       }).catch((err) => done(err))
