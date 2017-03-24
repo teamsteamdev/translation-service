@@ -1,6 +1,6 @@
 require('./config/config')
 
-const _ = require('lodash')
+// const _ = require('lodash')
 const express = require('express')
 const bodyParser = require('body-parser')
 
@@ -13,9 +13,9 @@ app.use(bodyParser.json())
 
 // CREATE new translation
 app.post('/', (req, res) => {
-  let {en, glossary} = req.body
+  let {en, terms} = req.body
 
-  translate(en, glossary).then(es => {
+  translate(en, terms).then(es => {
     res.send(es)
   }).catch((err) => {
     res.status(400).send(err)

@@ -5,8 +5,6 @@ let translate = (paragraphs, terms) => {
     return Promise.reject('Data is not an array')
   }
 
-  const replaceTerms = createReplaceTerms(terms)
-
   let transformed = paragraphs.map((string) => {
     if (typeof string === 'string') {
       return string.trim().replace(/yy|hh/g, '')
