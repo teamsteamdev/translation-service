@@ -1,19 +1,28 @@
 /* eslint-env mocha */
 const expect = require('expect')
+const googleTranslateApi = require('google-translate-api')
+
 const {translate} = require('./translate')
+const {createReplaceTerms} = require('./create-replace-terms')
 
 const {en, terms} = require('./../test-seed/seed.json')
+
+describe('google-translate-api', () => {
+  it('should translate a string', (done) => {
+    var string = 'Hello world'
+    googleTranslateApi(string, {to: 'es'}).then((res) => {
+      expect(res.text).toExist('there should be a text property')
+      expect(res.text).toBe('Hola Mundo')
+      done()
+    }).catch((err) => done(err))
+  })
+})
 
 describe('translate()', () => {
   let enText = [
     'In this case, it will have the corrections delimited with brackets.',
     'The language in which the text should be translated.'
   ]
-
-  it('should return a promise', () => {
-    let res = translate(enText)
-    expect(res).toBeA(Promise, 'translate() should return a pending Promise')
-  })
 
   it('should translate an array of strings', (done) => {
     translate(enText).then((array) => {
@@ -41,32 +50,37 @@ describe('translate()', () => {
     })
   })
 
-  it('should clean up translation input', (done) => {
+  it('should clean up translation input', () => {
     var dirtyArray = [
       '',
       'yyGroup Discussion: What was John’s clearly stated purpose in writing his Gospel?',
       '',
-      'hhHe wrote so we would believe and have eternal life (John 20:31).'
+      'hhHe wrote so we would believe and have eternal life (John 20: 31).'
     ]
 
-    translate(dirtyArray).then((array) => {
+    return translate(dirtyArray).then((array) => {
       expect(array.length).toBe(2)
       expect(array[0]).toExclude('yy')
       expect(array[1]).toExclude('hh')
-      done()
-    }).catch((err) => done(err))
+        .toInclude('20:31', `should fix ch:vv in "...${array[1].slice(-20)}"`)
+    })
   })
 
-  it('should replace the provided terms', (done) => {
-    translate(en, terms).then((array) => {
-      array.forEach((string) => {
-        terms.forEach((term) => {
-          let {find} = term
-
-          expect(string).toNotContain(find, 'translate() should replace terms.find')
-        })
-      })
-      done()
-    }).catch((err) => done(err))
+  it('should replace the provided terms', () => {
+    return translate(en, terms).then((strings) => {
+      for (let string of strings) {
+        for (let {find} of terms) {
+          expect(string).toNotContain(find, `translate() did not replace ${find}`)
+        }
+      }
+    })
   })
+})
+
+describe('createReplaceTerms()', () => {
+  it('should return a function', () => {
+    let replaceTerms = createReplaceTerms(terms)
+    expect(replaceTerms).toBeA(Function)
+  })
+  // TODO: Add tests for replaceTerms()
 })

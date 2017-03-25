@@ -1,6 +1,10 @@
 const googleTranslateApi = require('google-translate-api')
 
-let translate = (paragraphs, terms) => {
+const {createReplaceTerms} = require('./create-replace-terms')
+
+const defaultTerms = [{'find': '', 'replace': ''}]
+
+let translate = (paragraphs, terms = defaultTerms) => {
   if (paragraphs.constructor !== Array) {
     return Promise.reject('Data is not an array')
   }
@@ -21,24 +25,14 @@ let translate = (paragraphs, terms) => {
   })).then(results => {
     return results.map(result => result.text)
   }).then(results => {
+    // TODO: Fix this so that it successfully replaces the terms
+    // console.log(`Replace terms: "${terms.slice(0, 25)}..."`)
     if (terms) {
       let replaceTerms = createReplaceTerms(terms)
       return results.map(replaceTerms)
     }
     return results
   })
-}
-
-function createReplaceTerms (terms) {
-  return (string) => {
-    return terms.reduce((string, term) => {
-      let {find, replace} = term
-      let pattern = '\b' + find + '\b'
-      let regex = new RegExp(pattern, 'ig')
-
-      return string.replace(regex, replace)
-    }, string)
-  }
 }
 
 module.exports = {translate}
