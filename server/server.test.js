@@ -3,7 +3,7 @@ const expect = require('expect')
 const request = require('supertest')
 
 const {app} = require('./server')
-const data = require('./../test-seed/seed.json')
+const data = require('./../test-seed/seed.en.json')
 
 describe('POST /', () => {
   it('should translate an array', () => {

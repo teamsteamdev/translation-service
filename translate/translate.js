@@ -1,3 +1,4 @@
+const fs = require('fs')
 const googleTranslateApi = require('google-translate-api')
 
 const {createReplaceTerms} = require('./create-replace-terms')

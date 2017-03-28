@@ -5,16 +5,16 @@ const googleTranslateApi = require('google-translate-api')
 const {translate} = require('./translate')
 const {createReplaceTerms} = require('./create-replace-terms')
 
-const {en, terms} = require('./../test-seed/seed.json')
+const {en, terms} = require('./../test-seed/seed.en.json')
+const {es} = require('./../test-seed/seed.es.json')
 
 describe('google-translate-api', () => {
-  it('should still work', (done) => {
+  it('should still work', () => {
     var string = 'Hello world'
-    googleTranslateApi(string, {to: 'es'}).then((res) => {
+    return googleTranslateApi(string, {to: 'es'}).then((res) => {
       expect(res.text).toExist('there should be a text property')
       expect(res.text).toBe('Hola Mundo', 'should translate to spanish')
-      done()
-    }).catch((err) => done(err))
+    })
   })
 })
 
@@ -27,25 +27,23 @@ describe('translate()', () => {
   it('should translate an array of strings', () => {
     return translate(enText).then((array) => {
       expect(array).toBeAn(Array, 'should be an Array')
-      expect(array.length).toBe(2, 'should be the same length as input')
-      expect(array).toNotEqual(enText, 'should be different than input')
+        .toNotEqual(enText, 'should be different than input')
+      expect(array.length).toEqual(2, 'should be the same length as input')
       for (let element of array) {
         expect(element).toBeA('string', `should be an array of strings: ${array}`)
       }
     })
   })
 
-  it('should reject a non-array value', (done) => {
-    translate('not an array').catch((err) => {
+  it('should reject a non-array value', () => {
+    return translate('not an array').catch((err) => {
       expect(err).toExist()
-      done()
     })
   })
 
-  it('should not translate non-string values', (done) => {
-    translate(['string', {key: 'value'}]).catch((err) => {
+  it('should not translate non-string values', () => {
+    return translate(['string', {key: 'value'}]).catch((err) => {
       expect(err).toExist()
-      done()
     })
   })
 
@@ -79,9 +77,20 @@ describe('translate()', () => {
 })
 
 describe('createReplaceTerms()', () => {
+  let replaceTerms = createReplaceTerms(terms)
   it('should return a function', () => {
-    let replaceTerms = createReplaceTerms(terms)
     expect(replaceTerms).toBeA(Function)
   })
   // TODO: Add tests for replaceTerms()
+  it('should replace the terms', () => {
+    for (let string of es) {
+      let replaced = replaceTerms(string)
+      for (let {find, replace} of terms) {
+        expect(replaced).toNotContain(find, `it did not replace ${find}`)
+        if (string.includes(find)) {
+          expect(replaced).toInclude(replace, `it should replace ${find} with ${replace}`)
+        }
+      }
+    }
+  })
 })

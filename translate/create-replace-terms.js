@@ -5,10 +5,8 @@ const createReplaceTerms = function (terms) {
       let {find, replace} = term
       let pattern = '\\b' + find + '\\b'
       let regex = new RegExp(pattern, 'ig')
-      let replaced = string.replace(regex, replace)
-      // TODO: Remove spaces in ch:vv
-      // TODO: Make sure it's doing its job
-      return replaced
+
+      return string.replace(regex, replace)
     }, string)
       .replace(/(\d:)\s\s?(\d)/g, '$1$2')
       .replace(/\u2014/g, '\u2013')
