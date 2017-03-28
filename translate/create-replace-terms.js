@@ -9,7 +9,10 @@ const createReplaceTerms = function (terms) {
       // TODO: Remove spaces in ch:vv
       // TODO: Make sure it's doing its job
       return replaced
-    }, string).replace(/(\d:)\s\s?(\d)/g, '$1$2')
+    }, string)
+      .replace(/(\d:)\s\s?(\d)/g, '$1$2')
+      .replace(/\u2014/g, '\u2013')
+      .replace(/\bya\b/g, 'y a')
   }
 }
 

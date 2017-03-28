@@ -8,11 +8,11 @@ const {createReplaceTerms} = require('./create-replace-terms')
 const {en, terms} = require('./../test-seed/seed.json')
 
 describe('google-translate-api', () => {
-  it('should translate a string', (done) => {
+  it('should still work', (done) => {
     var string = 'Hello world'
     googleTranslateApi(string, {to: 'es'}).then((res) => {
       expect(res.text).toExist('there should be a text property')
-      expect(res.text).toBe('Hola Mundo')
+      expect(res.text).toBe('Hola Mundo', 'should translate to spanish')
       done()
     }).catch((err) => done(err))
   })
@@ -24,16 +24,15 @@ describe('translate()', () => {
     'The language in which the text should be translated.'
   ]
 
-  it('should translate an array of strings', (done) => {
-    translate(enText).then((array) => {
+  it('should translate an array of strings', () => {
+    return translate(enText).then((array) => {
       expect(array).toBeAn(Array, 'should be an Array')
       expect(array.length).toBe(2, 'should be the same length as input')
       expect(array).toNotEqual(enText, 'should be different than input')
-      array.forEach((element, index, array) => {
+      for (let element of array) {
         expect(element).toBeA('string', `should be an array of strings: ${array}`)
-      })
-      done()
-    }, err => done(err))
+      }
+    })
   })
 
   it('should reject a non-array value', (done) => {
@@ -55,14 +54,16 @@ describe('translate()', () => {
       '',
       'yyGroup Discussion: What was John’s clearly stated purpose in writing his Gospel?',
       '',
-      'hhHe wrote so we would believe and have eternal life (John 20: 31).'
+      'hhHe wrote so we would believe and have eternal life (John 20: 31).',
+      '\u2014\u2014'
     ]
 
     return translate(dirtyArray).then((array) => {
-      expect(array.length).toBe(2)
+      expect(array.length).toBe(3)
       expect(array[0]).toExclude('yy')
       expect(array[1]).toExclude('hh')
         .toInclude('20:31', `should fix ch:vv in "...${array[1].slice(-20)}"`)
+      expect(array[2]).toExclude('\u2014\u2014').toInclude('\u2013\u2013')
     })
   })
 
