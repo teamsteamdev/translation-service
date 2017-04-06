@@ -33,6 +33,9 @@ let translate = (paragraphs, terms = defaultTerms) => {
       return results.map(replaceTerms)
     }
     return results
+  }).catch((err) => {
+    err.message = `"${err.code}" from google-translate-api`
+    throw err
   })
 }
 

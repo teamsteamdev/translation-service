@@ -18,7 +18,11 @@ app.post('/', (req, res) => {
   translate(en, terms).then(es => {
     res.send(es)
   }).catch((err) => {
-    res.status(400).send(err)
+    if (err.message) {
+      res.status(500).send(err.message)
+    } else {
+      res.status(400).send(err)
+    }
   })
 })
 
