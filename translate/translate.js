@@ -6,6 +6,10 @@ let translateParagraph = paragraph => {
     return res.text.replace(/(\d:)\s\s?(\d)/g, '$1$2')
                    .replace(/\u2014/g, '\u2013')
                    .replace(/\bya\b/g, 'y a')
+  }).catch((err) => {
+    console.log(`There was a problem with this paragraph:`)
+    console.log(`"${paragraph}"`)
+    throw err
   })
 }
 
