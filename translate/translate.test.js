@@ -3,10 +3,9 @@ const expect = require('expect')
 const googleTranslateApi = require('google-translate-api')
 
 const {translate} = require('./translate')
-const {createReplaceTerms} = require('./create-replace-terms')
 
-const {en, terms} = require('./../test-seed/seed.en.json')
-const {es} = require('./../test-seed/seed.es.json')
+// const {en} = require('./../test-seed/seed.en.json')
+// const {es} = require('./../test-seed/seed.es.json')
 
 describe('google-translate-api', () => {
   it('should still work', () => {
@@ -63,34 +62,5 @@ describe('translate()', () => {
         .toInclude('20:31', `should fix ch:vv in "...${array[1].slice(-20)}"`)
       expect(array[2]).toExclude('\u2014\u2014').toInclude('\u2013\u2013')
     })
-  })
-
-  it('should replace the provided terms', () => {
-    return translate(en, terms).then((strings) => {
-      for (let string of strings) {
-        for (let {find} of terms) {
-          expect(string).toNotContain(find, `translate() did not replace ${find}`)
-        }
-      }
-    })
-  })
-})
-
-describe('createReplaceTerms()', () => {
-  let replaceTerms = createReplaceTerms(terms)
-  it('should return a function', () => {
-    expect(replaceTerms).toBeA(Function)
-  })
-  // TODO: Add tests for replaceTerms()
-  it('should replace the terms', () => {
-    for (let string of es) {
-      let replaced = replaceTerms(string)
-      for (let {find, replace} of terms) {
-        expect(replaced).toNotContain(find, `it did not replace ${find}`)
-        if (string.includes(find)) {
-          expect(replaced).toInclude(replace, `it should replace ${find} with ${replace}`)
-        }
-      }
-    }
   })
 })

@@ -8,7 +8,7 @@ const data = require('./../test-seed/seed.en.json')
 describe('POST /', () => {
   it('should translate an array', () => {
     return request(app)
-      .post('/')
+      .post('/translate')
       .send(data)
       .expect(200)
       .then((res) => {

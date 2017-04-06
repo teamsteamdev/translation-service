@@ -5,6 +5,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 const {translate} = require('./../translate/translate')
+const {createVocab} = require('./../replace/create-vocab.js')
 
 let app = express()
 const port = process.env.PORT || 3000
@@ -12,10 +13,10 @@ const port = process.env.PORT || 3000
 app.use(bodyParser.json())
 
 // CREATE new translation
-app.post('/', (req, res) => {
-  let {en, terms} = req.body
+app.post('/translate', (req, res) => {
+  let en = req.body.en ? req.body.en : req.body
 
-  translate(en, terms).then(es => {
+  translate(en).then(es => {
     res.send(es)
   }).catch((err) => {
     if (err.message) {
@@ -23,6 +24,18 @@ app.post('/', (req, res) => {
     } else {
       res.status(400).send(err)
     }
+  })
+})
+
+app.post('/replace', (req, res) => {
+  let es = req.body.es ? req.body.es : req.body
+  createVocab().then(useVocab => {
+    return es.map(useVocab)
+  }).then(es => {
+    res.send(es)
+  }).catch((err) => {
+    console.log(err)
+    res.status(400).send(err)
   })
 })
 

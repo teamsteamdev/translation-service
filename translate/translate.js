@@ -1,42 +1,36 @@
-const fs = require('fs')
-const googleTranslateApi = require('google-translate-api')
+// const fs = require('fs')
+const googleTranslateApi = require('./../gta-hack/google-translation-api.js')
 
-const {createReplaceTerms} = require('./create-replace-terms')
+let translateParagraph = paragraph => {
+  return googleTranslateApi(paragraph, {to: 'es'}).then(res => {
+    return res.text.replace(/(\d:)\s\s?(\d)/g, '$1$2')
+                   .replace(/\u2014/g, '\u2013')
+                   .replace(/\bya\b/g, 'y a')
+  })
+}
 
-const defaultTerms = [{'find': '', 'replace': ''}]
+let validString = string => {
+  return typeof string === 'string' && string !== ''
+}
 
-let translate = (paragraphs, terms = defaultTerms) => {
+let cleanString = string => {
+  return string.replace(/yy|hh/g, '').trim()
+}
+
+let translate = (paragraphs) => {
   if (paragraphs.constructor !== Array) {
     return Promise.reject('Data is not an array')
   }
-  let transformed = paragraphs.map((string) => {
-    if (typeof string === 'string') {
-      return string.trim().replace(/yy|hh/g, '')
-    } else {
-      return string
-    }
-  }).filter((string) => string !== '')
 
-  return Promise.all(transformed.map(paragraph => {
-    if (typeof paragraph !== 'string') {
-      return Promise.reject('This paragraph is not a string')
-    }
+  let transformed = paragraphs.filter(validString)
+                              .map(cleanString)
+                              .map(translateParagraph)
 
-    return googleTranslateApi(paragraph, {to: 'es'})
-  })).then(results => {
-    return results.map(result => result.text)
-  }).then(results => {
-    // TODO: Fix this so that it successfully replaces the terms
-    // console.log(`Replace terms: "${terms.slice(0, 25)}..."`)
-    if (terms) {
-      let replaceTerms = createReplaceTerms(terms)
-      return results.map(replaceTerms)
-    }
-    return results
-  }).catch((err) => {
-    err.message = `"${err.code}" from google-translate-api`
-    throw err
-  })
+  return Promise.all(transformed)
+                .catch((err) => {
+                  err.message = `"${err.code}" from google-translate-api`
+                  throw err
+                })
 }
 
 module.exports = {translate}
