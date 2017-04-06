@@ -3,12 +3,14 @@ const googleTranslateApi = require('./../gta-hack/google-translation-api.js')
 
 let translateParagraph = paragraph => {
   return googleTranslateApi(paragraph, {to: 'es'}).then(res => {
+    console.log(`No problem with this paragraph, it's ${paragraph.length} characters long.`)
     return res.text.replace(/(\d:)\s\s?(\d)/g, '$1$2')
                    .replace(/\u2014/g, '\u2013')
                    .replace(/\bya\b/g, 'y a')
   }).catch((err) => {
-    console.log(`There was a problem with this paragraph:`)
-    console.log(`"${paragraph}"`)
+    console.log(`There was a problem with this paragraph.`)
+    console.log(`It is ${paragraph.length} characters long.`)
+    // console.log(`"${paragraph.slice(0, 100)}"\n`)
     throw err
   })
 }
