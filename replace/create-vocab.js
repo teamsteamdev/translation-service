@@ -25,7 +25,7 @@ const createVocab = function () {
                  let replace = terms.get(word)
 
                 //  console.log(`Replacing "${word}" with "${replace}" in\n"${string}"\n`)
-
+                // TODO: refactor out the nested
                  string = string.replace(find, (match) => {
                    let first = match.charAt(0)
                    if (first === first.toUpperCase()) {

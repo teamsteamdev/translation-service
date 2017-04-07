@@ -47,9 +47,17 @@ function translate(text, opts) {
         };
         data[token.name] = token.value;
 
-        return url + '?' + querystring.stringify(data);
+        let fullUrl = url + '?' + querystring.stringify(data);
+        if (fullUrl.length > 2083) {
+            delete data.q;
+            return [
+                url + '?' + querystring.stringify(data),
+                {method: 'POST', body: {q: text}}
+            ];
+        }
+        return [fullUrl];
     }).then(function (url) {
-        return got(url).then(function (res) {
+        return got(...url).then(function (res) {
             var result = {
                 text: '',
                 from: {
@@ -101,9 +109,10 @@ function translate(text, opts) {
 
             return result;
         }).catch(function (err) {
+            console.log(err);
             var e;
             e = new Error();
-            if (err.statusCode && err.statusCode !== 200) {
+            if (err.statusCode !== undefined && err.statusCode !== 200) {
                 e.code = 'BAD_REQUEST';
             } else {
                 e.code = 'BAD_NETWORK';
