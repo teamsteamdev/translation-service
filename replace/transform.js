@@ -1,7 +1,7 @@
 const flatten = require('array-flatten')
 
 // const {digits} = require('./../utils/regex')
-const {reduceToWords, reduceToVerses} = require('./../utils/reduce')
+const {reduceToWords} = require('./../utils/reduce')
 // const {isNotAllCapsLine, isNotFootnoteLine} = require('./../utils/line')
 // const {removeChapterTitles, removeFootnoteMarkers} = require('./../utils/remove')
 //

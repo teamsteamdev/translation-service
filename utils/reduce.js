@@ -1,4 +1,4 @@
-const {punct, digits} = require('./regex')
+const {punct} = require('./regex')
 
 const reduceToWords = function (array, text) {
   let words = text.split(/\s/g)
@@ -11,8 +11,6 @@ const reduceToWords = function (array, text) {
   return array.concat(words)
 }
 
-// TODO: Reduce lines to { number, text }
-// IDEA: Split into verses? /^\d+\s/m
 const reduceToVerses = (verses, string, index, array) => {
   if (/^\d+$/.test(string.trim())) {
     let number = Number(string.trim())

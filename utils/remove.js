@@ -30,15 +30,15 @@ const removeFootnoteMarkers = (string) => {
   } else {
     return [stripMark(word), stripMark(mark)]
   }
+}
 
-  function stripMark (word) {
-    if (conc.has(word)) {
-      return word
-    } else if (conc.has(word.slice(0, -1))) {
-      return word.slice(0, -1)
-    } else {
-      return word
-    }
+const stripMark = (word) => {
+  if (conc.has(word)) {
+    return word
+  } else if (conc.has(word.slice(0, -1))) {
+    return word.slice(0, -1)
+  } else {
+    return word
   }
 }
 
