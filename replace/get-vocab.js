@@ -1,7 +1,7 @@
 const axios = require('axios')
 const {getWordSet} = require('./transform')
 
-const createVocab = function () {
+const getVocab = function () {
   const url = 'https://script.google.com/macros/s/AKfycbxjAfGxZxXz9adg7dm8V6Bejv2ts3MPtjxYy7sMo1FzRLEUja7z/exec'
 
   return new Promise(function (resolve, reject) {
@@ -44,4 +44,4 @@ const createVocab = function () {
   })
 }
 
-module.exports = {createVocab}
+module.exports = {getVocab}
