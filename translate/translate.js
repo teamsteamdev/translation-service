@@ -1,5 +1,6 @@
 // const fs = require('fs')
-const googleTranslateApi = require('./../gta-hack/google-translation-api.js')
+const googleTranslateApi = require('google-translate-api')
+// const googleTranslateApi = require('./../gta-hack/google-translation-api.js')
 
 let translateParagraph = paragraph => {
   return googleTranslateApi(paragraph, {to: 'es'}).then(res => {
