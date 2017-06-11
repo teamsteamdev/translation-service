@@ -10,7 +10,7 @@ const {getVocab} = require('./../replace/get-vocab.js')
 let app = express()
 const port = process.env.PORT || 3000
 
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '5mb'}))
 
 // CREATE new translation
 app.post('/translate', (req, res) => {
