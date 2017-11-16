@@ -10,7 +10,7 @@
     "test-watch": "nodemon --exec 'yarn test'"
   },
   "engines": {
-    "node": "7.7.2"
+    "node": "8.9.1"
   },
   "author": "John Steam",
   "license": "MIT",

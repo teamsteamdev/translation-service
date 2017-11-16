@@ -4,6 +4,7 @@ const request = require('supertest')
 
 const {app} = require('./server')
 const data = require('./../test-seed/seed.en.json')
+const list = require('./../test-seed/list-seed.es')
 let xl = require('./../test-seed/xl.en.json')
 
 describe('POST /', () => {
@@ -26,5 +27,17 @@ describe('POST /', () => {
       .then((res) => {
         expect(res.body).toExist()
       })
+  })
+
+  it.only('should replace every word in the list', () => {
+    return request(app)
+    .post('/replace')
+    .send(list)
+    .expect(200)
+    .then((res) => {
+      res.body.forEach((r) => {
+        expect(list).toExclude(r)
+      })
+    })
   })
 })
