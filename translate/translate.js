@@ -1,19 +1,25 @@
 // const fs = require('fs')
 const googleTranslateApi = require('google-translate-api')
+const getVocab = require('../replace/get-vocab')
 // const googleTranslateApi = require('./../gta-hack/google-translation-api.js')
 
-let translateParagraph = paragraph => {
-  return googleTranslateApi(paragraph, {to: 'es'}).then(res => {
+let translateParagraph = async (paragraph) => {
+  try {
+    const replaceTerms = await getVocab()
+    const translated = await googleTranslateApi(paragraph, { to: 'es' })
+    const replaced = replaceTerms(translated.text)
+      .replace(/(\d:)\s\s?(\d)/g, '$1$2')
+      .replace(/\u2014/g, '\u2013')
+      .replace(/\bya\b/g, 'y a')
+
     // console.log(`No problem with this paragraph, it's ${paragraph.length} characters long.`)
-    return res.text.replace(/(\d:)\s\s?(\d)/g, '$1$2')
-                   .replace(/\u2014/g, '\u2013')
-                   .replace(/\bya\b/g, 'y a')
-  }).catch((err) => {
+    return replaced
+  } catch (err) {
     console.log(`There was a problem with this paragraph.`)
     console.log(`It is ${paragraph.length} characters long.`)
     console.log(`"${paragraph.slice(0, 100)}"\n`)
-    throw err
-  })
+    console.error(err)
+  }
 }
 
 let validString = string => {
@@ -30,14 +36,14 @@ let translate = (paragraphs) => {
   }
 
   let transformed = paragraphs.filter(validString)
-                              .map(cleanString)
-                              .map(translateParagraph)
+    .map(cleanString)
+    .map(translateParagraph)
 
   return Promise.all(transformed)
-                .catch((err) => {
-                  err.message = `"${err.code}" from google-translate-api`
-                  throw err
-                })
+    .catch((err) => {
+      err.message = `"${err.code}" from google-translate-api`
+      throw err
+    })
 }
 
-module.exports = {translate}
+module.exports = { translate }

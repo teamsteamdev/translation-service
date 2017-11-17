@@ -16,12 +16,11 @@ const getVocab = async function () {
   }
 
   const replaceTerms = (string) => {
-    const loString = string.toLowerCase()
-
     terms.forEach((replace, find) => {
+      let loString = string.toLowerCase()
       for (let i = loString.indexOf(find); i > -1; i = loString.indexOf(find, i + find.length)) {
         let before = string.charAt(i - 1) || ' '
-        let after = string.charAt(i + find.length + 1) || ' '
+        let after = string.charAt(i + find.length) || ' '
 
         // Continue if found is not part of a larger word
         if (/\W/.test(before) && /\W/.test(after)) {
@@ -50,6 +49,7 @@ const getVocab = async function () {
           const start = string.slice(0, i)
           const end = string.slice(i + find.length)
           string = start + replace + end
+          loString = string.toLowerCase()
         }
       }
     })
@@ -60,4 +60,4 @@ const getVocab = async function () {
   return replaceTerms
 }
 
-module.exports = { getVocab }
+module.exports = getVocab

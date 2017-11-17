@@ -5,6 +5,8 @@ const request = require('supertest')
 const {app} = require('./server')
 const data = require('./../test-seed/seed.en.json')
 const list = require('./../test-seed/list-seed.es')
+const frequentEn = require('./../test-seed/samples.en')
+const frequentEs = require('./../test-seed/samples.es')
 let xl = require('./../test-seed/xl.en.json')
 
 describe('POST /', () => {
@@ -29,7 +31,33 @@ describe('POST /', () => {
       })
   })
 
-  it.only('should replace every word in the list', () => {
+  it.only('should replace terms in translation', () => {
+    return request(app)
+      .post('/translate')
+      .send(frequentEn)
+      .expect(200)
+      .then((res) => {
+        expect(res.body[2]).toExclude('Discusión grupal')
+        expect(res.body[2]).toInclude('Discusión de grupo')
+        expect(res.body[3]).toExclude('Distribuya la Hoja de trabajo')
+        expect(res.body[3]).toInclude('Reparta la Hoja de ejercicios')
+      })
+  })
+
+  it('should replace terms in spanish', () => {
+    return request(app)
+      .post('/replace')
+      .send(frequentEs)
+      .expect(200)
+      .then((res) => {
+        expect(res.body[2]).toExclude('Discusión grupal')
+        expect(res.body[2]).toInclude('Discusión de grupo')
+        expect(res.body[3]).toExclude('Distribuya la Hoja de trabajo')
+        expect(res.body[3]).toInclude('Reparta la Hoja de ejercicios')
+      })
+  })
+
+  it('should replace every word in the list', () => {
     return request(app)
     .post('/replace')
     .send(list)

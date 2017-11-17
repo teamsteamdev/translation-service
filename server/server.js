@@ -5,7 +5,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 const {translate} = require('./../translate/translate')
-const {getVocab} = require('./../replace/get-vocab.js')
+const getVocab = require('./../replace/get-vocab.js')
 
 let app = express()
 const port = process.env.PORT || 3000
@@ -29,10 +29,10 @@ app.post('/translate', (req, res) => {
 
 app.post('/replace', (req, res) => {
   let es = req.body.es ? req.body.es : req.body
-  getVocab().then(useVocab => {
-    return es.map(useVocab)
-  }).then(es => {
-    res.send(es)
+  getVocab().then(replaceTerms => {
+    return es.map(replaceTerms)
+  }).then(replacedEs => {
+    res.send(replacedEs)
   }).catch((err) => {
     console.log(err)
     res.status(400).send(err)
