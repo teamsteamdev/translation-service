@@ -1,0 +1,278 @@
+[
+  {
+    "find": "caminar",
+    "replace": "andar"
+  },
+  {
+    "find": "Cerrar en la oración",
+    "replace": "Concluya con oración"
+  },
+  {
+    "find": "Cierre con oración",
+    "replace": "Concluya con oración"
+  },
+  {
+    "find": "chart",
+    "replace": "diagrama"
+  },
+  {
+    "find": "colocando",
+    "replace": "poniendo"
+  },
+  {
+    "find": "comando",
+    "replace": "mandamiento"
+  },
+  {
+    "find": "comandos",
+    "replace": "Mandatos"
+  },
+  {
+    "find": "contorno",
+    "replace": "bosquejo"
+  },
+  {
+    "find": "de acuerdo con",
+    "replace": "según"
+  },
+  {
+    "find": "de veras",
+    "replace": "en verdad"
+  },
+  {
+    "find": "desafíe",
+    "replace": "Motive"
+  },
+  {
+    "find": "Discusión en grupo",
+    "replace": "Discusión de grupo"
+  },
+  {
+    "find": "Discusión grupal",
+    "replace": "Discusión de grupo"
+  },
+  {
+    "find": "Distribuya la Hoja de Trabajo",
+    "replace": "Reparta la Hoja de ejercicios"
+  },
+  {
+    "find": "el trabaja",
+    "replace": "el obra"
+  },
+  {
+    "find": "el trabajo",
+    "replace": "la obra"
+  },
+  {
+    "find": "en lo que se refiere",
+    "replace": "con respecto a"
+  },
+  {
+    "find": "esquema",
+    "replace": "bosquejo"
+  },
+  {
+    "find": "estimula",
+    "replace": "motiva"
+  },
+  {
+    "find": "estudiante",
+    "replace": "alumno"
+  },
+  {
+    "find": "estudiantes",
+    "replace": "alumnos"
+  },
+  {
+    "find": "evento",
+    "replace": "acontecimiento"
+  },
+  {
+    "find": "eventos",
+    "replace": "acontecimientos"
+  },
+  {
+    "find": "fundacional",
+    "replace": "fundamental"
+  },
+  {
+    "find": "guía",
+    "replace": "dirección"
+  },
+  {
+    "find": "honra de Dios",
+    "replace": "reconocimiento de Dios"
+  },
+  {
+    "find": "imagen",
+    "replace": "ilustración"
+  },
+  {
+    "find": "influenciar",
+    "replace": "influir"
+  },
+  {
+    "find": "James",
+    "replace": "Santiago"
+  },
+  {
+    "find": "Jude",
+    "replace": "Judas"
+  },
+  {
+    "find": "la gente",
+    "replace": "las personas"
+  },
+  {
+    "find": "los estándares",
+    "replace": "las normas"
+  },
+  {
+    "find": "los motivos",
+    "replace": "las motivaciones"
+  },
+  {
+    "find": "note que",
+    "replace": "observe que"
+  },
+  {
+    "find": "nótese",
+    "replace": "observe"
+  },
+  {
+    "find": "nuestras mentes",
+    "replace": "nuestra mente"
+  },
+  {
+    "find": "nuestras vidas",
+    "replace": "nuestra vida"
+  },
+  {
+    "find": "orar por",
+    "replace": "pedir"
+  },
+  {
+    "find": "pantalla visual",
+    "replace": "Ayuda visual"
+  },
+  {
+    "find": "Paul",
+    "replace": "Pablo"
+  },
+  {
+    "find": "Peter",
+    "replace": "Pedro"
+  },
+  {
+    "find": "pretenden",
+    "replace": "fingen"
+  },
+  {
+    "find": "pretender",
+    "replace": "fingir"
+  },
+  {
+    "find": "probablemente",
+    "replace": "es probable que"
+  },
+  {
+    "find": "relación",
+    "replace": "comunión"
+  },
+  {
+    "find": "relación con Dios",
+    "replace": "comunión con Dios"
+  },
+  {
+    "find": "relación personal",
+    "replace": "comunión personal"
+  },
+  {
+    "find": "repasar",
+    "replace": "repase"
+  },
+  {
+    "find": "reta",
+    "replace": "exhorta"
+  },
+  {
+    "find": "revelación",
+    "replace": "Apocalipsis"
+  },
+  {
+    "find": "review",
+    "replace": "repase"
+  },
+  {
+    "find": "revisar",
+    "replace": "repase"
+  },
+  {
+    "find": "Revise",
+    "replace": "Repase"
+  },
+  {
+    "find": "seria",
+    "replace": "grave"
+  },
+  {
+    "find": "severa",
+    "replace": "grave"
+  },
+  {
+    "find": "tiempos",
+    "replace": "momentos"
+  },
+  {
+    "find": "tiempos de",
+    "replace": "momentos de"
+  },
+  {
+    "find": "trabajar",
+    "replace": "obrar"
+  },
+  {
+    "find": "trabaje",
+    "replace": "obre"
+  },
+  {
+    "find": "un individuo",
+    "replace": "una persona"
+  },
+  {
+    "find": "verso",
+    "replace": "versículo"
+  },
+  {
+    "find": "versos",
+    "replace": "versículos"
+  },
+  {
+    "find": "violación de",
+    "replace": "transgresión de"
+  },
+  {
+    "find": "violaciones",
+    "replace": "transgresiones"
+  },
+  {
+    "find": "visite visual",
+    "replace": "Ayuda visual"
+  },
+  {
+    "find": "visualización visual",
+    "replace": "Ayuda visual"
+  },
+  {
+    "find": "parejas",
+    "replace": "pares"
+  },
+  {
+    "find": "lee",
+    "replace": "lea"
+  },
+  {
+    "find": "pide",
+    "replace": "pida"
+  }
+]

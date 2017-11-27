@@ -31,7 +31,7 @@ describe('POST /', () => {
       })
   })
 
-  it.only('should replace terms in translation', () => {
+  it('should replace terms in translation', () => {
     return request(app)
       .post('/translate')
       .send(frequentEn)
@@ -42,6 +42,7 @@ describe('POST /', () => {
         expect(res.body[3]).toExclude('Distribuya la Hoja de trabajo')
         expect(res.body[3]).toInclude('Reparta la Hoja de ejercicios')
       })
+      // .then((res) => done())
   })
 
   it('should replace terms in spanish', () => {
