@@ -1,5 +1,7 @@
 # Translation Tools with Heroku microservice
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jacksteamdev/translation-service.svg)](https://greenkeeper.io/)
+
 Translation Tools is a Google Document with a bound script. This script adds menu items and functionality to the document. It is used by pasting text into the document and choosing a menu item.
 
 There are three menu items:
